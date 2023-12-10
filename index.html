@@ -1,8 +1,27 @@
+<!DOCTYPE HTML>
 <html>
-	<head> <meta charset="utf-8">
-		<title>title</title>
+	<head>
+		<meta charset="UTF-8">
+		<title>phy-tutorial edit page</title>
+		<script>
+			async function get_file_msg() {
+				let res;
+				let response = await fetch("https://gitee.com/api/v5/repos/script2000/phy-tutorial/contents/《教程》—目录.txt");
+				let commit_json = await response.json();
+	
+				return atob(commit_json["content"]);
+			}
+		</script>
 	</head>
+
 	<body>
-		<p>test</p>
+		<div id="data_container"></div>
+
+		<script>
+			get_file_msg().then(data => {
+				const container = document.getElementById("data_container");
+				container.innerHTML = data;
+			})
+		</script>
 	</body>
 </html>
