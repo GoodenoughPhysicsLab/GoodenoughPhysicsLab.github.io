@@ -4,12 +4,11 @@
 		<meta charset="UTF-8">
 		<title>phy-tutorial edit page</title>
 		<script>
-			async function get_file_msg() {
-				let res;
-				let response = await fetch("https://gitee.com/api/v5/repos/script2000/phy-tutorial/contents/《教程》—目录.txt");
-				let commit_json = await response.json();
-	
-				return atob(commit_json["content"]);
+			function get_tutorial_msg() {
+				return fetch("https://gitee.com/api/v5/repos/script2000/phy-tutorial/contents/《教程》—目录.txt")
+					.then(r => r.json())
+					.then(o => fetch('data:text/plain;base64,'+o.content))
+					.then(r => r.text())
 			}
 		</script>
 	</head>
@@ -18,9 +17,9 @@
 		<div id="data_container"></div>
 
 		<script>
-			get_file_msg().then(data => {
-				const container = document.getElementById("data_container");
-				container.innerHTML = data;
+			get_tutorial_msg().then(data => {
+				//console.log(data);
+				document.getElementById("data_container").innerHTML = data;
 			})
 		</script>
 	</body>
