@@ -18,8 +18,8 @@
 
 		<script>
 			get_tutorial_msg().then(data => {
-				//console.log(data);
-				document.getElementById("data_container").innerHTML = data;
+				console.log(data);
+				document.getElementById("data_container").innerHTML = data.replace(/\n/g, "<br>");
 			})
 		</script>
 	</body>
